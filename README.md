@@ -24,39 +24,38 @@ Instructios will guide to setup working environment for development and testing 
 
 ##  Installation
 
-    Initially you should have administrator privileges, to setup the environment
+1.  Initially you should have administrator privileges, to setup the environment
 
-    Using the yum package manager install ansible, follow the steps given:
+2.  Using the yum package manager install ansible, follow the steps given:
 
-        ``` 
-        yum install python3
+    ``` 
+    yum install python3
 
-        pip3 install ansible
+    pip3 install ansible
 
-        ansible --version
-        ```    
+    ansible --version
+    ```    
     after installing ansible,
 
-    use the ansible playbook provisioned install git, Java 8 runtime environments or java jdk, and Jenkins with maven.
+3.  Use the ansible playbook provisioned install git, Java 8 runtime environments or java jdk, and Jenkins with maven.
 
-    e.g myplaybook.yaml
+    Run the ansible playbook (e.g myplaybook.yaml) then, we can verify the installation
 
-        ```
-        ansible-playbook myplaybook.yaml
-        ```
-    then, we can verify the installation
+    ```
+    ansible-playbook myplaybook.yaml
+            
+    git --version
 
-        ```
-        git --version
+    java -version
 
-        java -version
+    echo $JAVA_HOME
 
-        echo $JAVA_HOME
+    mvn --version
 
-        mvn --version
+    echo $MAVEN_HOME
+    ```
+    once verified we can move on with deployment process
 
-        echo $MAVEN_HOME
-        ```
 ##  Deployment
 
 1.  Clone the github repository
