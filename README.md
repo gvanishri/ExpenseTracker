@@ -28,35 +28,35 @@ Instructios will guide to setup working environment for development and testing 
 
     Using the yum package manager install ansible, follow the steps given:
 
-    ``` bash
-    yum install python3
+        ``` 
+        yum install python3
 
-    pip3 install ansible
+        pip3 install ansible
 
-    ansible --version
-    ```
-    after installing ansible
+        ansible --version
+        ```    
+    after installing ansible,
 
-    the ansible playbook provisioned we can install git, Java 8 runtime environments or java jdk, and Jenkins with maven.
+    use the ansible playbook provisioned install git, Java 8 runtime environments or java jdk, and Jenkins with maven.
 
     e.g myplaybook.yaml
-    ```
-    ansible-playbook myplaybook.yaml
-    ```
 
+        ```
+        ansible-playbook myplaybook.yaml
+        ```
     then, we can verify the installation
-    ```
-    git --version
 
-    java -version
+        ```
+        git --version
 
-    echo $JAVA_HOME
+        java -version
 
-    mvn --version
+        echo $JAVA_HOME
 
-    echo $MAVEN_HOME
-    ```
+        mvn --version
 
+        echo $MAVEN_HOME
+        ```
 ##  Deployment
 
 1.  Clone the github repository
