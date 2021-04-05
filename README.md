@@ -78,7 +78,7 @@ Instructios will guide to setup working environment for development and testing 
     
     git push -u origin master
     ```
-2.  Github repository - establish webhook setting - to trigger jenkins maven build on every git push
+2.  Go to you - Github repository - establish webhook settings - to trigger jenkins maven build on every git push
 
 2.  Using - Jenkins plugin manage credentials - establish docker hub credentials
 
