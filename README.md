@@ -37,7 +37,7 @@ Instructios will guide to setup working environment for development and testing 
     ```    
     after installing ansible,
 
-3.  Use the ansible playbook provisioned install git, Java 8 runtime environments or java jdk, and Jenkins with maven.
+3.  Use the ansible playbook provisioned install git, Java 8 runtime environments or java jdk, Jenkins with maven, Docker
 
     Run the ansible playbook (e.g myplaybook.yaml) then, we can verify the installation
 
@@ -78,6 +78,7 @@ Instructios will guide to setup working environment for development and testing 
     
     git push -u origin master
     ```
+2.  Github repository - establish webhook setting - to trigger jenkins maven build on every git push
 
 2.  Using - Jenkins plugin manage credentials - establish docker hub credentials
 
