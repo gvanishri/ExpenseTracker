@@ -1,0 +1,72 @@
+---
+- hosts: servers
+  tasks:
+    - name: Installing requirements - yu-utils, git, wget, java, maven,iptables
+      yum:
+        name: '{{item.packval}}'
+        state: present
+        update_cache: yes
+      with_items:
+        - { packval: 'yum-utils'}
+        - { packval: 'git'}
+        - { packval: 'wget'}
+        - { packval: 'java'}
+        - { packval: 'maven'}
+        - { packval: 'iptables'}
+
+    - name: Adding jenkins.repo under /etc/repos.d - Updating io key
+      command: '{{item.cmdval}}'
+      with_items:
+        - { cmdval: 'wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat-stable/jenkins.repo'}
+        - { cmdval: 'rpm --import http://pkg.jenkins.io/redhat-stable/jenkins.io.key'}
+        - { cmdval: 'yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo'}
+
+    - name: install docker
+      yum:
+        name: '{{item.packval}}'
+        state: present
+        update_cache: yes
+      loop:
+        - {packval: 'jenkins'}
+        - {packval: 'docker-ce'}
+        - {packval: 'docker-ce-cli'}
+        - {packval: 'containerd.io'}
+
+    - name: Starting jenkins
+      service: name=jenkins enabled=yes state=started
+
+    - name: Starting Jenkins and docker
+      service:
+        name: '{{item.srvsval}}'
+        enabled: yes
+        state: started
+      loop:
+        - {srvsval: 'jenkins'}
+        - {srvsval: 'docker'}
+
+    - name: Editing the config file
+      lineinfile:
+        path: /etc/sysconfig/jenkins
+        regexp: '{{item.regexpval}}' #Line to Search
+        line: '{{item.lineval}}' #Line to Replace
+      with_items:
+        - { regexpval: '^JENKINS_USER', lineval: 'JENKINS_USER=root'}
+        - { regexpval: '^JENKINS_PORT', lineval: 'JENKINS_PORT=8083'}
+
+    - name: Ansible service jenkins, docker daemon reload
+      systemd:
+        name: '{{item.srvsdaemonval}}'
+        state: restarted
+        daemon_reload: yes
+      loop:
+        - {srvsdaemonval: 'jenkins'}
+        - {srvsdaemonval: 'docker'}
+
+    - name: Restarting Jenkins and docker
+      service:
+        name: '{{item.srvsval}}'
+        enabled: yes
+        state: restarted
+      loop:
+        - {srvsval: 'jenkins'}
+        - {srvsval: 'docker'}
