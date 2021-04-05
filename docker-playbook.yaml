@@ -1,0 +1,35 @@
+---
+- hosts: servers
+  tasks:
+    - name: installing requirements yum-utils, iptables
+      yum:
+        name: '{{item.packval}}'
+        state: present
+      with_items:
+        - { packval: 'yum-utils'}
+        - { packval: 'iptables'}
+
+    - name: Setting up the docker-ce.repo under /etc/yum.repos.d
+      command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+    - name: install docker
+      apt:
+        name: "{{item}}"
+        state: present
+        update_cache: yes
+      loop:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+
+    - name: Starting docker
+      service: name=docker enabled=yes state=started
+
+    - name: Ansible service daemon reload
+      systemd:
+        name: docker
+        state: restarted
+        daemon_reload: yes
+
+    - name: Restarting docker
+      service: name=docker enabled=yes state=restarted

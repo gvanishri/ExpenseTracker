@@ -53,6 +53,8 @@ Instructios will guide to setup working environment for development and testing 
     mvn --version
 
     echo $MAVEN_HOME
+
+    docker --version
     ```
     once verified we can move on with deployment process
 
