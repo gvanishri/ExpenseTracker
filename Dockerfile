@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM openjdk:8-jre-alpine3.9
 
 MAINTAINER gvanitha.shri@gmail.com
 

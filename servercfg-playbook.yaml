@@ -70,3 +70,8 @@
       loop:
         - {srvsval: 'jenkins'}
         - {srvsval: 'docker'}
+
+    - name: Clean all yum data
+      command: yum clean all
+      args:
+        warn: yes        
