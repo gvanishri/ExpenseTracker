@@ -26,17 +26,19 @@ node {
 	    sh 'docker login -u gvanishri -p $PASSWORD'	
     }
     
-    stage('Push Image to Docker Hub') {
+    stage('Push Image to Docker Hub') {        
         sh 'docker push gvanishri/expensetracker:1.0.$BUILD_NUMBER'
 	    sh 'docker push gvanishri/expensetracker:latest'
     }
     
     stage('Remove unused docker images') {
+        echo 'Removing unused docker images from current location'
 	    sh 'docker rmi -f gvanishri/expensetracker:1.0.$BUILD_NUMBER'
         sh 'docker rmi -f gvanishri/expensetracker:latest'
     }
 
     stage('Using SSH connect to kube8master') {
+        echo 'Connect to kube8master using host info provided'
 	    def remote = [:]
         remote.name = 'kube8master'
         remote.host = '18.236.223.16'
@@ -45,13 +47,13 @@ node {
         remote.allowAnyHosts = true
         
         stage('Copy files to kube8server') {
-            echo 'Using sshPut copy .yaml configuration files to kube8master in a specified path'
+            echo 'Using remote sshPut copy .yaml configuration files to kube8master in a specified path'
 	        sshPut remote: remote, from: 'myapp-deploy.yaml', into: './ExpenseTracker/'
 	        sshPut remote: remote, from: 'myapp-service.yaml', into: './ExpenseTracker/'
 	    }
 
 	    stage('Deploy Kubernetes') {
-            echo 'Using sshCommand - kubectl - deploy .yaml configuration files'
+            echo 'Using remote sshCommand - kubectl - deploy .yaml configuration files'
 	        sshCommand remote: remote, command: 'kubectl apply -f ./ExpenseTracker/myapp-deploy.yaml'
 	        sshCommand remote: remote, command: 'kubectl apply -f ./ExpenseTracker/myapp-service.yaml'
 	    }
