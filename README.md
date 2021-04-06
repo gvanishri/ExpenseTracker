@@ -4,8 +4,6 @@
 
 ** Version 1.0.0 **
 
-### ExpenseTracker - Testing
-
 ##  About / Synopsis
 
 * Project status: working/prototype
