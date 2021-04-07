@@ -87,14 +87,14 @@ Instructios will guide to setup working environment for development and testing 
 5.  Runtime setup kubernetes server environment, 
     we can deploy the docker hub image by using yaml configuration files in the github repository.
 
-    e.g myappdeploy.yaml, myappservice.yaml
+    e.g myapp-deploy.yaml, myapp-service.yaml
 
     ```
     kubectl get nodes
     
-    kubectl apply -f myappdeploy.yaml
+    kubectl apply -f myapp-deploy.yaml
     
-    kubectl apply -f myappservice.yaml
+    kubectl apply -f myapp-service.yaml
 
     kubectl get all
 
@@ -107,7 +107,7 @@ Instructios will guide to setup working environment for development and testing 
 
 ##  Contribution
 
-    [RRC Academy](https://www.rrcacademy.com/ "RRC Academy")
+* [RRC Academy](https://www.rrcacademy.com/ "RRC Academy")
 
 ##  License
 
