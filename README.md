@@ -48,11 +48,7 @@ Instructios will guide to setup working environment for development and testing 
 
     java -version
 
-    echo $JAVA_HOME
-
     mvn --version
-
-    echo $MAVEN_HOME
 
     docker --version
     ```
